@@ -62,18 +62,6 @@ toolkit with validated math.
 </td>
 <td width="50%" valign="top">
 
-### 📶 2.4 GHz Microstrip Patch Antenna
-
-Designed and simulated a patch antenna for the 2.4 GHz ISM band as a
-team B.Tech project — full workflow from geometry design through
-S-parameter validation.
-
-**What it involved:**
-- RF simulation and structure design in Ansys HFSS
-- Return loss / bandwidth / radiation pattern analysis
-- Team project — built and validated with 3 collaborators
-
-`Ansys HFSS` `RF Design` `Antenna Theory`
 
 </td>
 </tr>
