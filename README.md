@@ -1,4 +1,5 @@
 <div align="center">
+![Neofetch Stats](https://neofetch-profile.vercel.app/api?username=SharmaSaurabh-git)
 
 <img src="https://capsule-render.vercel.app/api?type=waving&color=0:1a1a2e,100:16213e&height=180&section=header&text=SAURABH%20SHARMA&fontSize=42&fontColor=00d9ff&animation=fadeIn&fontAlignY=38&desc=Signals%20%2B%20Systems%20%2B%20Silicon&descAlignY=58&descSize=16&descColor=888888" width="100%"/>
 
