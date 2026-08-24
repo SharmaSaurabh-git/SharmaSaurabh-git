@@ -1,142 +1,168 @@
-<div align="center">
-![Neofetch Stats](https://neofetch-profile.vercel.app/api?username=SharmaSaurabh-git)
+# Signal Processing Toolkit
 
-<img src="https://capsule-render.vercel.app/api?type=waving&color=0:1a1a2e,100:16213e&height=180&section=header&text=SAURABH%20SHARMA&fontSize=42&fontColor=00d9ff&animation=fadeIn&fontAlignY=38&desc=Signals%20%2B%20Systems%20%2B%20Silicon&descAlignY=58&descSize=16&descColor=888888" width="100%"/>
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Python 3.7+](https://img.shields.io/badge/python-3.7%2B-blue.svg)](https://www.python.org/downloads/)
+[![Tests](https://github.com/SharmaSaurabh-git/signal-processing-toolkit/actions/workflows/ci.yml/badge.svg)](https://github.com/SharmaSaurabh-git/signal-processing-toolkit/actions/workflows/ci.yml)
+[![Latest Release](https://img.shields.io/github/v/release/SharmaSaurabh-git/signal-processing-toolkit)](https://github.com/SharmaSaurabh-git/signal-processing-toolkit/releases/latest)
+[![Code Size](https://img.shields.io/github/languages/code-size/SharmaSaurabh-git/signal-processing-toolkit)](https://github.com/SharmaSaurabh-git/signal-processing-toolkit)
+[![GitHub Stars](https://img.shields.io/github/stars/SharmaSaurabh-git/signal-processing-toolkit?style=social)](https://github.com/SharmaSaurabh-git/signal-processing-toolkit/stargazers)
 
-</div>
+A Python library for signal processing operations commonly used in Electronics and Communication Engineering: FIR filter design, spectral analysis, and analog/digital modulation — built on NumPy and SciPy, with a small set of plotting and signal-generation utilities on top.
 
-<div align="center">
+## Table of Contents
 
-```
-┌─────────────────────────────────────────────────────────┐
-│  x(t) ──▶ [ECE Undergrad] ──▶ [DSP] ──▶ [VLSI] ──▶ y(t)  │
-│                                       │
-└─────────────────────────────────────────────────────────┘
-```
+- [Example Output](#example-output)
+- [Features](#features)
+- [Installation](#installation)
+- [Quick Start](#quick-start)
+- [Documentation](#documentation)
+- [Examples](#examples)
+- [Testing](#testing)
+- [Contributing](#contributing)
+- [License](#license)
 
-</div>
+## Example Output
 
-<br>
+All plots below are generated directly from the library's own functions — see [Regenerate these plots yourself](#regenerate-these-plots-yourself) to reproduce them.
 
-## `>` about
+### Filter Design & Power Spectral Density
+`fir_lowpass` + `fir_filter_zero_phase` applied to a noisy 50 Hz sine wave, with before/after PSD comparison.
 
-I'm an Electronics & Communication Engineering student building toward
-**Verification Engineering** in the VLSI industry. My path runs through
-signal processing first — filters, spectral analysis, modulation — because
-that's where the intuition for "what a signal actually looks like" comes
-from before you're staring at RTL and waveforms all day.
+![Filter demo](doc/images/filter_demo.png)
 
-I build things that run, not things that just look like they run. Every
-repo below has a real test suite and I can walk through any line of it.
+### AM Modulation / Demodulation
+A 5 Hz message signal AM-modulated onto a 50 Hz carrier, then demodulated back using `am_modulate` / `am_demodulate`.
 
-<br>
+![Modulation demo](doc/images/modulation_demo.png)
 
-## `>` currently
+### Live Filter Cutoff Sweep
+Animated sweep of `fir_lowpass` cutoff frequency from 20 Hz to 250 Hz, showing the filtered output update in real time.
 
-```diff
-+ Building out a Verilog/SystemVerilog foundation
-+ Maintaining signal-processing-toolkit (Python DSP library)
-+ Following an 18-month roadmap toward VLSI verification internships
-```
+![Filter sweep](doc/images/filter_sweep_demo.gif)
 
-<br>
+### STFT Spectrogram (Linear Chirp)
+Time-frequency view of a 20 Hz → 200 Hz linear chirp using `spectrogram`.
 
-## `>` projects
+![Spectrogram](doc/images/spectrogram_demo.png)
 
-<table>
-<tr>
-<td width="50%" valign="top">
+### QPSK Constellation (Real Coherent Demodulation)
+I/Q symbols recovered from `qpsk_modulate` output via coherent demodulation using the library's own `fir_lowpass` and `fir_filter_zero_phase`.
 
-### 📡 [signal-processing-toolkit](https://github.com/SharmaSaurabh-git/signal-processing-toolkit)
+![QPSK constellation](doc/images/qpsk_constellation.png)
 
-A Python DSP library built from the ground up — not a wrapper, an actual
-toolkit with validated math.
+### Eye Diagram (BPSK)
+Eye pattern generated from `bpsk_modulate` output using the library's `eye_diagram` plotting utility.
 
-**What's in it:**
-- FIR filter design (low-pass/high-pass/band-pass/band-stop) + both causal and zero-phase filtering
-- Spectral analysis: FFT, Welch PSD, spectrogram, STFT
-- AM/FM analog modulation, BPSK/QPSK digital modulation
-- 46-test suite, CI on every push
+![Eye diagram](doc/images/eye_diagram.png)
 
-`Python` `NumPy` `SciPy` `Matplotlib` `pytest`
+### FFT Magnitude Spectrum
+Magnitude spectrum of a 50 Hz + 120 Hz composite signal using `fft`, `fftfreq`, and `fftshift`.
 
-</td>
-<td width="50%" valign="top">
+![FFT spectrum](doc/images/fft_spectrum.png)
 
+### PN Sequence (LFSR)
+First 20 chips of a maximal-length PN sequence generated with polynomial x⁶ + x + 1 via `generate_pn_sequence`.
 
-</td>
-</tr>
-</table>
+![PN sequence](doc/images/pn_sequence_demo.png)
 
-<div align="center">
-<sub><i>More in progress — first Verilog/digital-design project incoming.</i></sub>
-</div>
+#### Regenerate these plots yourself
 
-<br>
-
-## `>` toolchain
-
-<table>
-<tr>
-<td valign="top" width="33%">
-
-**Languages**
-```
-Python    ████████░░  
-MATLAB    ██████░░░░  
-C         █████░░░░░  
-Verilog   ███░░░░░░░  learning
+```bash
+python demo/generate_demo_plots.py    # filter, AM modulation, spectrogram, PN sequence
+python demo/extra_demo_plots.py       # QPSK constellation, eye diagram, FFT spectrum
+python demo/generate_sweep_gif.py     # animated filter cutoff sweep
 ```
 
-</td>
-<td valign="top" width="33%">
+## Features
 
-**Tools**
+### Core modules
+
+- **Filters** — FIR filter design (low-pass, high-pass, band-pass, band-stop) via the windowing method, plus causal and zero-phase filtering
+- **Transforms** — FFT/IFFT, power spectral density (Welch's method), spectrogram, STFT, coherence, cross-correlation
+- **Modulation** — AM/FM analog modulation and demodulation, BPSK/QPSK digital modulation, PN sequence (LFSR) generation
+- **Utilities** — test signal generation, time/frequency/spectrogram plotting, SNR calculation, eye diagrams
+
+### Key capabilities
+
+- Parameterizable filter design with customizable windows
+- Both causal (`fir_filter`) and zero-phase (`fir_filter_zero_phase`) filtering, so you can pick whichever matches your use case — see [`doc/architecture.md`](doc/architecture.md) for the tradeoff
+- Input validation with clear error messages, not silent failures
+- 46-test suite covering every public function
+- Runnable example scripts under [`signal_processing/examples/`](signal_processing/examples/) and [`demo/`](demo/)
+
+## Installation
+
+```bash
+git clone https://github.com/SharmaSaurabh-git/signal-processing-toolkit.git
+cd signal-processing-toolkit
+pip install -e .
 ```
-Git & GitHub
-Scilab
-Ansys HFSS
-Linux / Termux
+
+Requires Python 3.7+, NumPy, SciPy, and Matplotlib (see [`requirements.txt`](requirements.txt) for versions).
+
+## Quick Start
+
+```python
+import numpy as np
+import signal_processing as sp
+
+# Generate a noisy test signal
+t = np.linspace(0, 1, 1000, endpoint=False)
+data = np.sin(2 * np.pi * 50 * t) + 0.5 * np.random.randn(1000)
+
+# Design a low-pass filter (cutoff = 100 Hz)
+b, a = sp.fir_lowpass(cutoff=100.0, numtaps=101, fs=1000.0)
+
+# Filter the signal (zero-phase keeps it time-aligned for comparison/plotting)
+filtered = sp.fir_filter_zero_phase(data, b, a)
+
+# Analyze the spectrum before and after
+freqs, psd = sp.power_spectral_density(data, fs=1000.0, nperseg=256)
+filtered_freqs, filtered_psd = sp.power_spectral_density(filtered, fs=1000.0, nperseg=256)
+
+# Plot results
+sp.plot_signal(data, fs=1000.0, title="Noisy Signal")
+sp.plot_signal(filtered, fs=1000.0, title="Filtered Signal")
+sp.plot_spectrum(data, fs=1000.0, title="Signal Spectrum")
+sp.plot_spectrum(filtered, fs=1000.0, title="Filtered Spectrum")
 ```
 
-</td>
-<td valign="top" width="33%">
+Every line of this snippet is executed as part of the test/demo suite before each release, so it's guaranteed to run against the current code.
 
-**Focus areas**
+## Documentation
+
+- [API Documentation](doc/api.md) — function reference for every public module
+- [Architecture Overview](doc/architecture.md) — package layout, design decisions, known limitations
+- [Changelog](CHANGELOG.md) — what changed between releases
+- [Contributing Guide](CONTRIBUTING.md) — how to contribute
+
+## Examples
+
+```bash
+python -m signal_processing.examples.basic_filtering
+python -m signal_processing.examples.comprehensive_demo
+python demo/generate_demo_plots.py   # saves PNGs to demo/demo_output/
 ```
-Digital Signal
-  Processing
-RF / Antenna
-  Design
-VLSI
-  Verification
+
+## Testing
+
+```bash
+pip install -e ".[dev]"
+pytest
 ```
 
-</td>
-</tr>
-</table>
+Tests are organized by module (`tests/test_filters.py`, `test_transforms.py`, `test_modulation.py`, `test_utils.py`) and run automatically on every push and pull request via GitHub Actions.
 
-<br>
+## Contributing
 
-## `>` metrics
+Contributions are welcome! Please read [CONTRIBUTING.md](CONTRIBUTING.md) for the process and code style guidelines.
 
-<div align="center">
+## License
 
-<img src="https://github-readme-stats.vercel.app/api?username=SharmaSaurabh-git&show_icons=true&hide_border=true&theme=tokyonight&hide_title=true&count_private=true" height="165"/>
-<img src="https://github-readme-stats.vercel.app/api/top-langs/?username=SharmaSaurabh-git&layout=compact&hide_border=true&theme=tokyonight&hide_title=true" height="165"/>
+MIT License — see [LICENSE](LICENSE) for details.
 
-</div>
+## Acknowledgments
 
-<br>
-
-<div align="center">
-
-<a href="https://www.linkedin.com/in/YOUR-LINKEDIN"><img src="https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white"/></a>
-<a href="mailto:YOUR-EMAIL"><img src="https://img.shields.io/badge/Email-D14836?style=for-the-badge&logo=gmail&logoColor=white"/></a>
-
-<br><br>
-
-<img src="https://capsule-render.vercel.app/api?type=waving&color=0:16213e,100:1a1a2e&height=100&section=footer" width="100%"/>
-
-</div>
-
+- Inspired by classic DSP textbooks and open-source implementations
+- Built with NumPy, SciPy, and Matplotlib
+- GitHub Actions for continuous integration
